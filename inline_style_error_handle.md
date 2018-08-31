@@ -54,8 +54,7 @@ func CopyFile(src, dst string) error {
 }
 ```
 
-对inline类型的变量赋值，相当于执行他的代码，象上面的代码
-相当于执行了现在的：
+对inline类型的变量赋值，相当于执行他的代码，要赋与的值则为其参数，象上面的代码相当于执行了现在的代码：
 ```go
 func CopyFile(src, dst string) error {
 	r, errI := os.Open(src); /* errI */ { var err error = errI; if err != nil { return fmt.Errorf("copy %s %s: %v", src, dst, err) } }
@@ -73,7 +72,7 @@ func CopyFile(src, dst string) error {
 ```go
 func ProcessStat(...) {
     statI := inline(stat Stat) {
-        swith(stat) {
+        swith stat {
             ...
         }
     }
@@ -98,3 +97,6 @@ func CallFoo() {
     errA, errB = foo()
 }
 ```
+
+对于多个返回值都用inline方式时，按惯例遵循从右到左执行。
+因为这是个通用的方案，理论上可定义一个全局inline，但可能会导致一些风险(隐隐觉得有些不安^_^), 可限制它在func内有使用。
