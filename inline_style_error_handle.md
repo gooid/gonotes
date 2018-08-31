@@ -79,9 +79,11 @@ func ProcessStat(...) {
 
     errI := inline(err error) { ... }
 
-    statI, errI := readStat1()
+    statI, errI = readStat1()
     ...
-    statI, errI := readStat2()
+    statI, _ = readStat2() // ignore error
+    ...
+    _, errI = readStat3() // ignore stat
 }
 
 ```
@@ -99,4 +101,4 @@ func CallFoo() {
 ```
 
 对于多个返回值都用inline方式时，按惯例遵循从右到左执行。
-因为这是个通用的方案，理论上可定义一个全局inline，但可能会导致一些风险(隐隐觉得有些不安^_^), 可限制它在func内有使用。
+因为这是个通用的方案，理论上可定义全局inline，但可能会导致一些风险(隐隐觉得有些不安^_^), 可限制它在func内有使用。
