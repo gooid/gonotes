@@ -32,9 +32,9 @@ func CopyFile(src, dst string) error {
 ```go
 func CopyFile(src, dst string) error {
 	errI := inline(err error) {
-        if err != nil {
-            return fmt.Errorf("copy %s %s: %v", src, dst, err)
-        }
+        	if err != nil {
+            		return fmt.Errorf("copy %s %s: %v", src, dst, err)
+        	}
 	}
 
 	r, errI := os.Open(src)
@@ -42,10 +42,10 @@ func CopyFile(src, dst string) error {
 
 	w, errI := os.Create(dst)
 	errI = inline(err error) {
-        if err != nil {
-		    w.Close()
-            os.Remove(dst) // (only if a check fails)
-        }
+        	if err != nil {
+		    	w.Close()
+            		os.Remove(dst) // (only if a check fails)
+        	}
 	}
 
 	_, errI = io.Copy(w, r)
